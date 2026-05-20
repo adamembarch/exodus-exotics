@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 280">
+  <defs>
+    <linearGradient id="chrome" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f5f5f5"/>
+      <stop offset="25%" stop-color="#b8b8b8"/>
+      <stop offset="50%" stop-color="#eeeeee"/>
+      <stop offset="75%" stop-color="#888888"/>
+      <stop offset="100%" stop-color="#cccccc"/>
+    </linearGradient>
+    <linearGradient id="chrome2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#dcdcdc"/>
+      <stop offset="45%" stop-color="#a0a0a0"/>
+      <stop offset="100%" stop-color="#686868"/>
+    </linearGradient>
+    <linearGradient id="mGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f0f0f0"/>
+      <stop offset="30%" stop-color="#b4b4b4"/>
+      <stop offset="60%" stop-color="#e0e0e0"/>
+      <stop offset="100%" stop-color="#848484"/>
+    </linearGradient>
+    <filter id="ds" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="1" stdDeviation="2.5" flood-color="#000" flood-opacity="0.55"/>
+    </filter>
+  </defs>
+
+  <!-- TOP SWORD POINT -->
+  <polygon points="100,2 109,24 100,33 91,24" fill="url(#chrome)" filter="url(#ds)"/>
+
+  <!-- TOP SHAFT -->
+  <rect x="94" y="23" width="12" height="28" fill="url(#chrome)"/>
+
+  <!-- TOP SHAFT NOTCHES -->
+  <rect x="87" y="30" width="8" height="6" rx="1.5" fill="url(#chrome2)"/>
+  <rect x="105" y="30" width="8" height="6" rx="1.5" fill="url(#chrome2)"/>
+  <rect x="87" y="40" width="8" height="5" rx="1.5" fill="url(#chrome2)"/>
+  <rect x="105" y="40" width="8" height="5" rx="1.5" fill="url(#chrome2)"/>
+
+  <!-- TOP CROSSGUARD BAR -->
+  <rect x="78" y="50" width="44" height="12" rx="3" fill="url(#chrome)" filter="url(#ds)"/>
+
+  <!-- TOP LEFT AXE BLADE -->
+  <path d="M78 56 Q48 47 26 26 Q38 48 78 63 Z" fill="url(#chrome)" filter="url(#ds)"/>
+  <path d="M78 56 Q48 47 26 26" fill="none" stroke="#404040" stroke-width="1" opacity="0.5"/>
+
+  <!-- TOP RIGHT AXE BLADE -->
+  <path d="M122 56 Q152 47 174 26 Q162 48 122 63 Z" fill="url(#chrome)" filter="url(#ds)"/>
+  <path d="M122 56 Q152 47 174 26" fill="none" stroke="#404040" stroke-width="1" opacity="0.5"/>
+
+  <!-- M LETTER shadow pass -->
+  <path d="M28 212 L28 93 L100 163 L172 93 L172 212"
+        fill="none" stroke="#111111" stroke-width="28"
+        stroke-linejoin="miter" stroke-linecap="butt"/>
+
+  <!-- M LETTER main chrome -->
+  <path d="M28 212 L28 93 L100 163 L172 93 L172 212"
+        fill="none" stroke="url(#mGrad)" stroke-width="23"
+        stroke-linejoin="miter" stroke-linecap="butt" filter="url(#ds)"/>
+
+  <!-- M LETTER inner highlight -->
+  <path d="M28 212 L28 93 L100 163 L172 93 L172 212"
+        fill="none" stroke="#f0f0f0" stroke-width="7"
+        stroke-linejoin="miter" stroke-linecap="butt" opacity="0.32"/>
+
+  <!-- CAR SILHOUETTE overlaid on M -->
+  <!-- Car body -->
+  <path d="M20 154 Q26 141 44 137 L72 131 Q88 127 112 131 L142 137 Q160 141 178 154 Q180 163 176 168 L24 168 Q20 163 20 154 Z"
+        fill="url(#chrome2)" filter="url(#ds)"/>
+  <!-- Car cabin -->
+  <path d="M70 131 L81 119 Q93 112 110 114 L126 120 L134 131 Z"
+        fill="#141414" opacity="0.88"/>
+  <!-- Front window slope -->
+  <path d="M126 120 L134 131 Q127 131 118 131 Z" fill="#1e1e1e" opacity="0.7"/>
+  <!-- Rear window slope -->
+  <path d="M70 131 L81 119 Q70 119 66 126 Z" fill="#1e1e1e" opacity="0.7"/>
+  <!-- Hood nose line -->
+  <path d="M20 154 Q28 148 40 146 L58 144" fill="none" stroke="url(#chrome)" stroke-width="1.5" opacity="0.75"/>
+  <!-- Tail line -->
+  <path d="M178 154 Q170 148 160 146 L144 144" fill="none" stroke="url(#chrome)" stroke-width="1.5" opacity="0.75"/>
+  <!-- Belt crease -->
+  <line x1="33" y1="150" x2="167" y2="150" stroke="#e0e0e0" stroke-width="0.8" opacity="0.35"/>
+  <!-- Left wheel -->
+  <circle cx="57" cy="168" r="16" fill="#080808" stroke="url(#chrome)" stroke-width="2.5"/>
+  <circle cx="57" cy="168" r="7" fill="url(#chrome2)"/>
+  <!-- Right wheel -->
+  <circle cx="143" cy="168" r="16" fill="#080808" stroke="url(#chrome)" stroke-width="2.5"/>
+  <circle cx="143" cy="168" r="7" fill="url(#chrome2)"/>
+
+  <!-- BOTTOM CROSSGUARD BAR -->
+  <rect x="78" y="211" width="44" height="12" rx="3" fill="url(#chrome)" filter="url(#ds)"/>
+
+  <!-- BOTTOM SHAFT NOTCHES -->
+  <rect x="87" y="223" width="8" height="5" rx="1.5" fill="url(#chrome2)"/>
+  <rect x="105" y="223" width="8" height="5" rx="1.5" fill="url(#chrome2)"/>
+  <rect x="87" y="232" width="8" height="6" rx="1.5" fill="url(#chrome2)"/>
+  <rect x="105" y="232" width="8" height="6" rx="1.5" fill="url(#chrome2)"/>
+
+  <!-- BOTTOM LEFT AXE BLADE -->
+  <path d="M78 217 Q48 228 26 252 Q38 228 78 217 Z" fill="url(#chrome)" filter="url(#ds)"/>
+  <path d="M78 217 Q48 228 26 252" fill="none" stroke="#404040" stroke-width="1" opacity="0.5"/>
+
+  <!-- BOTTOM RIGHT AXE BLADE -->
+  <path d="M122 217 Q152 228 174 252 Q162 228 122 217 Z" fill="url(#chrome)" filter="url(#ds)"/>
+  <path d="M122 217 Q152 228 174 252" fill="none" stroke="#404040" stroke-width="1" opacity="0.5"/>
+
+  <!-- BOTTOM SHAFT -->
+  <rect x="94" y="223" width="12" height="29" fill="url(#chrome)"/>
+
+  <!-- BOTTOM SWORD POINT -->
+  <polygon points="100,278 109,256 100,247 91,256" fill="url(#chrome)" filter="url(#ds)"/>
+</svg>

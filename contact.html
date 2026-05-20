@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us | Exodus Exotics</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <img src="images/logo-transparent.svg" alt="Exodus Exotics" class="logo-img" />
+        <span class="logo-text">Exodus<span class="logo-accent">Exotics</span></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="inventory.html">Fleet</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle">&#9776;</button>
+    </div>
+  </nav>
+
+  <div class="page-hero">
+    <h1>Contact Us</h1>
+    <p>We'd love to hear from you — reach out any time</p>
+  </div>
+
+  <section class="section">
+    <div class="contact-layout">
+
+      <!-- INFO -->
+      <div class="contact-info">
+        <h2>Get in Touch</h2>
+        <p>Whether you have a question about a vehicle, want to check availability, or need help choosing the right rental — our concierge team is ready.</p>
+
+        <div class="info-item">
+          <div class="info-icon">&#128205;</div>
+          <div>
+            <strong>Address</strong><br>
+            123 Motor Lane<br>Springfield, IL 62701
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">&#128222;</div>
+          <div>
+            <strong>Phone</strong><br>
+            (217) 555-0192
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">&#9993;</div>
+          <div>
+            <strong>Email</strong><br>
+            info@exodusexotics.com
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">&#128336;</div>
+          <div>
+            <strong>Hours</strong><br>
+            Mon–Fri: 9am – 7pm<br>
+            Saturday: 9am – 5pm<br>
+            Sunday: By Appointment
+          </div>
+        </div>
+
+        <div class="map-placeholder">
+          <span>&#128506;</span>
+          <p>Embed your Google Maps iframe here</p>
+        </div>
+      </div>
+
+      <!-- FORM -->
+      <div class="contact-form-card">
+        <h2>Send Us a Message</h2>
+        <form id="contactForm" class="contact-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="cFirstName">First Name *</label>
+              <input type="text" id="cFirstName" required placeholder="John" />
+            </div>
+            <div class="form-group">
+              <label for="cLastName">Last Name *</label>
+              <input type="text" id="cLastName" required placeholder="Smith" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="cEmail">Email Address *</label>
+            <input type="email" id="cEmail" required placeholder="john@example.com" />
+          </div>
+          <div class="form-group">
+            <label for="cPhone">Phone Number</label>
+            <input type="tel" id="cPhone" placeholder="(555) 000-0000" />
+          </div>
+          <div class="form-group">
+            <label for="cSubject">Subject</label>
+            <select id="cSubject">
+              <option>General Inquiry</option>
+              <option>Check Vehicle Availability</option>
+              <option>Make a Reservation</option>
+              <option>Pricing Question</option>
+              <option>Delivery / Pickup Request</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="cMessage">Message *</label>
+            <textarea id="cMessage" rows="5" required placeholder="Tell us how we can help..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary full-width">Send Message</button>
+        </form>
+        <div id="contactSuccess" class="success-msg" style="display:none;">
+          Thanks for reaching out! Our concierge team will respond within 1 business hour.
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <h3>
+          <img src="images/logo-transparent.svg" alt="" class="footer-logo-img" />
+          Exodus Exotics
+        </h3>
+        <p>Premium vehicle rentals for discerning clients.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="inventory.html">Fleet</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <p>123 Motor Lane, Springfield, IL 62701</p>
+        <p>&#128222; (217) 555-0192</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Exodus Exotics. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/contact.js"></script>
+</body>
+</html>
