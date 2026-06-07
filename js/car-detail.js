@@ -4,9 +4,9 @@ document.getElementById('navToggle').addEventListener('click', () => {
   document.querySelector('.nav-links').classList.toggle('open');
 });
 
-const params = new URLSearchParams(window.location.search);
-const carId = parseInt(params.get('id'));
-const car = CARS.find(c => c.id === carId);
+const params  = new URLSearchParams(window.location.search);
+const carId   = parseInt(params.get('id'));
+const car     = CARS.find(c => c.id === carId);
 const section = document.getElementById('carDetail');
 
 if (!car) {
@@ -14,16 +14,21 @@ if (!car) {
 } else {
   document.title = `${car.year} ${car.make} ${car.model} | Exodus Exotics`;
 
-  const price = car.price.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
-  const mileage = car.mileage.toLocaleString();
+  const price      = car.price.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+  const mileage    = car.mileage.toLocaleString();
   const weeklyRate = (car.price * 6).toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
   const featuresHTML = car.features.map(f => `<span class="feature-tag">${f}</span>`).join('');
-  const badgeHTML = car.badge ? `<span class="car-badge" style="position:static;display:inline-block;margin-bottom:0.8rem">${car.badge}</span>` : '';
+  const badgeHTML  = car.badge ? `<span class="car-badge" style="position:static;display:inline-block;margin-bottom:0.8rem">${car.badge}</span>` : '';
+
+  const mainImgContent = car.image
+    ? `<img src="${car.image}" alt="${car.make} ${car.model}" style="width:100%;height:100%;object-fit:cover;border-radius:var(--radius);" />`
+    : (car.emoji || '🚗');
+  const mainImgStyle = car.image ? 'style="padding:0;overflow:hidden;"' : '';
 
   section.innerHTML = `
     <div class="detail-layout">
       <div class="detail-main">
-        <div class="detail-main-img">${car.emoji}</div>
+        <div class="detail-main-img" ${mainImgStyle}>${mainImgContent}</div>
         ${badgeHTML}
         <h1 class="detail-title">${car.year} ${car.make} ${car.model}</h1>
         <div class="detail-sub">${car.trim} &bull; ${car.color}</div>
@@ -84,21 +89,36 @@ if (!car) {
 
   document.getElementById('inquiryForm').addEventListener('submit', e => {
     e.preventDefault();
+    saveInquiry({
+      type:      'inquiry',
+      vehicle:   `${car.year} ${car.make} ${car.model} ${car.trim}`,
+      vehicleId: car.id,
+      name:      document.getElementById('iName').value.trim(),
+      email:     document.getElementById('iEmail').value.trim(),
+      phone:     document.getElementById('iPhone').value.trim(),
+      startDate: '',
+      endDate:   '',
+      notes:     document.getElementById('iMsg').value.trim(),
+    });
     document.getElementById('inquiryForm').style.display = 'none';
     document.getElementById('inquirySuccess').style.display = 'block';
   });
 
-  // Similar vehicles (same type, different car)
-  const similar = CARS.filter(c => c.type === car.type && c.id !== car.id).slice(0, 3);
-  const simGrid = document.getElementById('similarGrid');
+  // Similar vehicles
+  const similar  = CARS.filter(c => c.type === car.type && c.id !== car.id).slice(0, 3);
+  const simGrid  = document.getElementById('similarGrid');
   if (similar.length > 0) {
     simGrid.innerHTML = similar.map(c => {
-      const p = c.price.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+      const p     = c.price.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
       const badge = c.badge ? `<span class="car-badge">${c.badge}</span>` : '';
+      const imgInner = c.image
+        ? `<img src="${c.image}" alt="${c.make} ${c.model}" style="width:100%;height:100%;object-fit:cover;display:block;" />`
+        : (c.emoji || '🚗');
+      const imgStyle = c.image ? 'style="padding:0;font-size:0;"' : '';
       return `
         <div class="car-card" onclick="window.location='car.html?id=${c.id}'">
           <div class="car-img-wrap">
-            <div class="car-img">${c.emoji}</div>
+            <div class="car-img" ${imgStyle}>${imgInner}</div>
             ${badge}
           </div>
           <div class="car-body">

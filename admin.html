@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fleet Management | Exodus Exotics</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    body { min-height: 100vh; }
+
+    /* LOGIN */
+    #loginScreen {
+      position: fixed; inset: 0; display: flex;
+      align-items: center; justify-content: center;
+      z-index: 9999; background: #000;
+    }
+    .login-card {
+      background: #141414; border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px; padding: 2.8rem 2.4rem;
+      width: 100%; max-width: 380px;
+      box-shadow: 0 8px 50px rgba(0,0,0,0.8); text-align: center;
+    }
+    .login-logo { height: 80px; margin: 0 auto 1rem; filter: drop-shadow(0 0 8px rgba(200,0,0,0.4)); }
+    .login-card h2 { color: #fff; font-size: 1.1rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 0.3rem; }
+    .login-card p  { color: #444; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 2rem; }
+    .login-card input {
+      width: 100%; padding: 0.75rem 1rem; background: #0a0a0a;
+      border: 1px solid rgba(255,255,255,0.08); border-radius: 3px;
+      color: #ccc; font-size: 0.95rem; font-family: inherit; margin-bottom: 1rem;
+    }
+    .login-card input:focus { outline: none; border-color: rgba(192,57,43,0.5); }
+    #loginError { display: none; color: #c0392b; font-size: 0.78rem; margin-bottom: 0.8rem; }
+
+    /* PANEL */
+    #adminPanel { display: none; }
+    .admin-header {
+      background: rgba(0,0,0,0.95); border-bottom: 1px solid rgba(255,255,255,0.07);
+      padding: 1rem 2rem; display: flex; align-items: center;
+      justify-content: space-between; position: sticky; top: 0; z-index: 100;
+      backdrop-filter: blur(12px);
+    }
+    .admin-header-left { display: flex; align-items: center; gap: 1rem; }
+    .admin-logo { height: 52px; filter: drop-shadow(0 0 5px rgba(200,0,0,0.3)); }
+    .admin-header h1 { color: #fff; font-size: 0.9rem; letter-spacing: 3px; text-transform: uppercase; }
+    .admin-header-right { display: flex; align-items: center; gap: 1rem; }
+
+    .admin-body { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem; }
+
+    /* TABS */
+    .admin-tabs { display: flex; gap: 0; margin-bottom: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .admin-tab {
+      padding: 0.65rem 1.4rem; font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 1.5px; text-transform: uppercase; color: #555;
+      background: none; border: none; border-bottom: 2px solid transparent;
+      cursor: pointer; font-family: inherit; transition: color 0.2s;
+      margin-bottom: -1px;
+    }
+    .admin-tab:hover { color: #aaa; }
+    .admin-tab.tab-active { color: #fff; border-bottom-color: var(--primary); }
+
+    /* TOOLBAR */
+    .admin-toolbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.2rem; }
+    .toolbar-left { display: flex; align-items: baseline; gap: 0.7rem; }
+    .toolbar-left h2 { color: #fff; font-size: 1.1rem; font-weight: 700; }
+    .section-count { color: #555; font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; }
+
+    /* TABLE */
+    .admin-table-wrap {
+      background: #141414; border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 10px; overflow: hidden;
+    }
+    table { width: 100%; border-collapse: collapse; }
+    thead tr { background: #0a0a0a; border-bottom: 1px solid rgba(255,255,255,0.07); }
+    th {
+      padding: 0.9rem 1.2rem; text-align: left; font-size: 0.65rem;
+      color: #555; letter-spacing: 2.5px; text-transform: uppercase; font-weight: 600;
+    }
+    td {
+      padding: 0.9rem 1.2rem; font-size: 0.88rem; color: #bbb;
+      border-bottom: 1px solid rgba(255,255,255,0.04); vertical-align: middle;
+    }
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr:hover { background: rgba(255,255,255,0.02); }
+
+    .car-thumb {
+      width: 48px; height: 34px; object-fit: cover;
+      border-radius: 4px; margin-right: 0.6rem; vertical-align: middle;
+      border: 1px solid rgba(255,255,255,0.07);
+    }
+    .car-name { color: #fff; font-weight: 600; vertical-align: middle; }
+    .admin-badge {
+      display: inline-block; background: rgba(192,57,43,0.12);
+      border: 1px solid rgba(192,57,43,0.3); color: #c0392b;
+      font-size: 0.6rem; font-weight: 700; padding: 2px 8px; border-radius: 2px;
+      letter-spacing: 1.5px; text-transform: uppercase; margin-left: 0.4rem; vertical-align: middle;
+    }
+    .action-cell { white-space: nowrap; }
+    .admin-btn {
+      padding: 0.3rem 0.85rem; font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 1.5px; text-transform: uppercase; border-radius: 3px;
+      cursor: pointer; border: 1px solid; font-family: inherit; transition: all 0.2s;
+    }
+    .edit-btn { background: transparent; color: rgba(255,255,255,0.6); border-color: rgba(255,255,255,0.2); }
+    .edit-btn:hover { background: rgba(255,255,255,0.06); color: #fff; border-color: rgba(255,255,255,0.4); }
+    .delete-btn { background: rgba(192,57,43,0.08); color: #c0392b; border-color: rgba(192,57,43,0.3); margin-left: 0.4rem; }
+    .delete-btn:hover { background: rgba(192,57,43,0.18); border-color: rgba(192,57,43,0.6); }
+    .admin-empty { text-align: center; color: #444; padding: 3rem; font-size: 0.88rem; }
+
+    /* MODAL */
+    #carModal {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.85); z-index: 9000;
+      align-items: flex-start; justify-content: center;
+      padding: 2rem 1rem; overflow-y: auto;
+    }
+    .modal-card {
+      background: #141414; border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px; width: 100%; max-width: 680px;
+      box-shadow: 0 20px 80px rgba(0,0,0,0.9); margin: auto;
+    }
+    .modal-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.4rem 1.8rem; border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .modal-header h2 { color: #fff; font-size: 1rem; letter-spacing: 1px; }
+    #modalClose { background: none; border: none; color: #555; font-size: 1.4rem; cursor: pointer; transition: color 0.2s; }
+    #modalClose:hover { color: #fff; }
+    .modal-body { padding: 1.8rem; }
+    .modal-footer {
+      display: flex; justify-content: flex-end; gap: 0.8rem;
+      padding: 1.2rem 1.8rem; border-top: 1px solid rgba(255,255,255,0.07);
+    }
+
+    /* FORM */
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-grid .span-2 { grid-column: 1 / -1; }
+    .admin-form .form-group { margin-bottom: 0; }
+    .admin-form label {
+      display: block; font-size: 0.65rem; font-weight: 600; color: #555;
+      letter-spacing: 2px; text-transform: uppercase; margin-bottom: 0.35rem;
+    }
+    .admin-form input,
+    .admin-form select,
+    .admin-form textarea {
+      width: 100%; padding: 0.6rem 0.85rem; background: #0a0a0a;
+      border: 1px solid rgba(255,255,255,0.08); border-radius: 3px;
+      color: #ccc; font-size: 0.86rem; font-family: inherit; transition: border-color 0.2s;
+    }
+    .admin-form input[type="file"] { padding: 0.45rem 0.85rem; cursor: pointer; }
+    .admin-form input:focus,
+    .admin-form select:focus,
+    .admin-form textarea:focus { outline: none; border-color: rgba(192,57,43,0.45); }
+    .admin-form textarea { resize: vertical; min-height: 80px; }
+    .admin-form .hint { font-size: 0.65rem; color: #444; margin-top: 0.25rem; }
+
+    /* IMAGE PREVIEW */
+    #imgPreviewWrap { display: none; margin-top: 0.6rem; }
+    #imgPreview { width: 100%; max-height: 160px; object-fit: cover; border-radius: 6px; border: 1px solid rgba(255,255,255,0.08); }
+
+    @media (max-width: 600px) {
+      .form-grid { grid-template-columns: 1fr; }
+      .form-grid .span-2 { grid-column: 1; }
+      .admin-toolbar { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOGIN -->
+  <div id="loginScreen">
+    <div class="login-card">
+      <img src="images/logo-transparent.svg" alt="Exodus Exotics" class="login-logo" />
+      <h2>Fleet Management</h2>
+      <p>Exodus Exotics</p>
+      <form id="loginForm">
+        <input type="password" id="adminPass" placeholder="Enter password" autocomplete="current-password" required />
+        <div id="loginError">Incorrect password. Please try again.</div>
+        <button type="submit" class="btn btn-primary" style="width:100%">Sign In</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ADMIN PANEL -->
+  <div id="adminPanel">
+
+    <div class="admin-header">
+      <div class="admin-header-left">
+        <img src="images/logo-transparent.svg" alt="" class="admin-logo" />
+        <h1>Fleet Management</h1>
+      </div>
+      <div class="admin-header-right">
+        <a href="index.html" class="btn btn-outline" style="font-size:0.72rem;padding:0.4rem 1rem">View Site</a>
+        <button id="logoutBtn" class="btn btn-outline" style="font-size:0.72rem;padding:0.4rem 1rem">Sign Out</button>
+      </div>
+    </div>
+
+    <div class="admin-body">
+
+      <div class="admin-tabs">
+        <button class="admin-tab" id="tabFleet">Fleet Inventory</button>
+        <button class="admin-tab" id="tabInquiries">Reservation Inquiries</button>
+      </div>
+
+      <!-- FLEET SECTION -->
+      <div id="fleetSection">
+        <div class="admin-toolbar">
+          <div class="toolbar-left">
+            <h2>Vehicles</h2>
+            <span id="fleetCount" class="section-count"></span>
+          </div>
+          <button id="addCarBtn" class="btn btn-primary">+ Add Vehicle</button>
+        </div>
+        <div class="admin-table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Vehicle</th><th>Trim</th><th>Type</th><th>Daily Rate</th><th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="carTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- INQUIRIES SECTION -->
+      <div id="inquiriesSection" style="display:none">
+        <div class="admin-toolbar">
+          <div class="toolbar-left">
+            <h2>Inquiries</h2>
+            <span id="inquiryCount" class="section-count"></span>
+          </div>
+        </div>
+        <div class="admin-table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th><th>Contact</th><th>Vehicle</th><th>Dates</th><th>Notes</th><th>Received</th>
+              </tr>
+            </thead>
+            <tbody id="inquiryTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ADD / EDIT MODAL -->
+  <div id="carModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2 id="modalTitle">Add Vehicle</h2>
+        <button id="modalClose">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="carForm" class="admin-form">
+          <input type="hidden" id="carId" />
+          <div class="form-grid">
+
+            <div class="form-group">
+              <label for="fYear">Year</label>
+              <input type="number" id="fYear" placeholder="2024" min="1900" max="2099" required />
+            </div>
+            <div class="form-group">
+              <label for="fMake">Make</label>
+              <input type="text" id="fMake" placeholder="Ferrari" required />
+            </div>
+            <div class="form-group">
+              <label for="fModel">Model</label>
+              <input type="text" id="fModel" placeholder="Roma" required />
+            </div>
+            <div class="form-group">
+              <label for="fTrim">Trim</label>
+              <input type="text" id="fTrim" placeholder="Spider" required />
+            </div>
+            <div class="form-group">
+              <label for="fType">Body Type</label>
+              <select id="fType" required>
+                <option value="Coupe">Coupe</option>
+                <option value="Sedan">Sedan</option>
+                <option value="SUV">SUV</option>
+                <option value="Convertible">Convertible</option>
+                <option value="Truck">Truck</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="fColor">Color</label>
+              <input type="text" id="fColor" placeholder="Rosso Corsa" required />
+            </div>
+            <div class="form-group">
+              <label for="fPrice">Daily Rate ($)</label>
+              <input type="number" id="fPrice" placeholder="2800" min="1" required />
+            </div>
+            <div class="form-group">
+              <label for="fMileage">Mileage</label>
+              <input type="number" id="fMileage" placeholder="850" min="0" required />
+            </div>
+            <div class="form-group">
+              <label for="fEngine">Engine</label>
+              <input type="text" id="fEngine" placeholder="3.9L Twin-Turbo V8" required />
+            </div>
+            <div class="form-group">
+              <label for="fTransmission">Transmission</label>
+              <input type="text" id="fTransmission" placeholder="8-Speed DCT" required />
+            </div>
+            <div class="form-group">
+              <label for="fMpg">MPG (city/hwy)</label>
+              <input type="text" id="fMpg" placeholder="14/20" required />
+            </div>
+            <div class="form-group">
+              <label for="fDoors">Doors</label>
+              <input type="number" id="fDoors" placeholder="2" min="1" max="6" required />
+            </div>
+            <div class="form-group">
+              <label for="fBadge">Badge <span style="color:#333;font-weight:400">(optional)</span></label>
+              <input type="text" id="fBadge" placeholder="Featured, Popular, etc." />
+            </div>
+
+            <div class="form-group span-2">
+              <label for="fImage">Vehicle Photo</label>
+              <input type="file" id="fImage" accept="image/*" />
+              <div id="imgPreviewWrap">
+                <img id="imgPreview" alt="Preview" />
+              </div>
+              <div class="hint">Upload a photo of the vehicle. Leave blank to keep the existing photo.</div>
+            </div>
+
+            <div class="form-group span-2">
+              <label for="fFeatures">Features &amp; Highlights</label>
+              <textarea id="fFeatures" rows="4" placeholder="671 HP&#10;Retractable Soft Top&#10;Carbon Ceramic Brakes" required></textarea>
+              <div class="hint">One feature per line.</div>
+            </div>
+
+            <div class="form-group span-2">
+              <label for="fDescription">Description</label>
+              <textarea id="fDescription" rows="4" placeholder="Describe the vehicle..." required></textarea>
+            </div>
+
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="cancelBtn" class="btn btn-outline">Cancel</button>
+        <button type="submit" form="carForm" class="btn btn-primary">Save Vehicle</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

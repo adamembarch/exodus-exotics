@@ -28,111 +28,56 @@
     <p>Transparent pricing — no surprises, ever</p>
   </div>
 
-  <section class="section">
-    <div class="financing-layout">
+  <section class="section" style="max-width:680px">
 
-      <!-- CALCULATOR -->
-      <div class="calc-card">
-        <h2>Rental Cost Estimator</h2>
-        <p>Estimate your total rental cost instantly</p>
+    <div class="apply-card">
+      <h2>Reserve a Vehicle</h2>
+      <p>Fill out the form below and a reservation specialist will confirm availability within 1 business hour.</p>
 
-        <div class="calc-form">
+      <form id="financeForm" class="contact-form">
+        <div class="form-row">
           <div class="form-group">
-            <label for="vehiclePrice">Vehicle Daily Rate ($)</label>
-            <input type="number" id="vehiclePrice" value="500" min="100" step="50" />
-          </div>
-          <div class="form-group">
-            <label for="downPayment">Security Deposit ($)</label>
-            <input type="number" id="downPayment" value="1000" min="0" step="100" />
+            <label for="fFirstName">First Name *</label>
+            <input type="text" id="fFirstName" required placeholder="John" />
           </div>
           <div class="form-group">
-            <label for="tradeIn">Discount / Promo ($)</label>
-            <input type="number" id="tradeIn" value="0" min="0" step="50" />
-          </div>
-          <div class="form-group">
-            <label for="interestRate">Insurance Rate (%)</label>
-            <input type="number" id="interestRate" value="8" min="0" max="30" step="0.5" />
-          </div>
-          <div class="form-group">
-            <label for="loanTerm">Rental Duration</label>
-            <select id="loanTerm">
-              <option value="1">1 day</option>
-              <option value="3">3 days</option>
-              <option value="7" selected>1 week</option>
-              <option value="14">2 weeks</option>
-              <option value="30">1 month</option>
-              <option value="90">3 months</option>
-            </select>
-          </div>
-          <button class="btn btn-primary full-width" id="calcBtn">Calculate</button>
-        </div>
-
-        <div class="calc-results" id="calcResults">
-          <div class="result-row">
-            <span>Base Rental Cost</span><span id="resLoan">—</span>
-          </div>
-          <div class="result-row">
-            <span>Est. Daily Total</span><span id="resMonthly" class="big-number">—</span>
-          </div>
-          <div class="result-row">
-            <span>Insurance Cost</span><span id="resInterest">—</span>
-          </div>
-          <div class="result-row">
-            <span>Grand Total</span><span id="resTotal">—</span>
+            <label for="fLastName">Last Name *</label>
+            <input type="text" id="fLastName" required placeholder="Smith" />
           </div>
         </div>
+        <div class="form-group">
+          <label for="fEmail">Email Address *</label>
+          <input type="email" id="fEmail" required placeholder="john@example.com" />
+        </div>
+        <div class="form-group">
+          <label for="fPhone">Phone Number *</label>
+          <input type="tel" id="fPhone" required placeholder="(555) 000-0000" />
+        </div>
+        <div class="form-group">
+          <label for="fVehicle">Vehicle of Interest</label>
+          <input type="text" id="fVehicle" placeholder="e.g. Ferrari Roma, Lamborghini Urus..." />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fStartDate">Start Date *</label>
+            <input type="date" id="fStartDate" required />
+          </div>
+          <div class="form-group">
+            <label for="fEndDate">End Date *</label>
+            <input type="date" id="fEndDate" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="fNotes">Additional Notes</label>
+          <textarea id="fNotes" rows="3" placeholder="Any special requests, delivery address, occasion..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary full-width">Submit Reservation Request</button>
+      </form>
+      <div id="financeSuccess" class="success-msg" style="display:none;">
+        Thank you! A reservation specialist will be in touch shortly.
       </div>
-
-      <!-- RESERVE -->
-      <div class="apply-card">
-        <h2>Reserve a Vehicle</h2>
-        <p>Fill out the form below and a reservation specialist will confirm availability within 1 business hour.</p>
-
-        <form id="financeForm" class="contact-form">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="fFirstName">First Name *</label>
-              <input type="text" id="fFirstName" required placeholder="John" />
-            </div>
-            <div class="form-group">
-              <label for="fLastName">Last Name *</label>
-              <input type="text" id="fLastName" required placeholder="Smith" />
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="fEmail">Email Address *</label>
-            <input type="email" id="fEmail" required placeholder="john@example.com" />
-          </div>
-          <div class="form-group">
-            <label for="fPhone">Phone Number *</label>
-            <input type="tel" id="fPhone" required placeholder="(555) 000-0000" />
-          </div>
-          <div class="form-group">
-            <label for="fEmployment">Rental Duration</label>
-            <select id="fEmployment">
-              <option>1–3 Days</option>
-              <option>4–7 Days</option>
-              <option>1–2 Weeks</option>
-              <option>1 Month</option>
-              <option>Long-Term (3+ Months)</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="fIncome">Estimated Budget ($/day)</label>
-            <input type="number" id="fIncome" placeholder="500" min="0" step="50" />
-          </div>
-          <div class="form-group">
-            <label for="fNotes">Vehicle Preferences</label>
-            <textarea id="fNotes" rows="3" placeholder="Tell us what you're looking for — make, model, occasion..."></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary full-width">Submit Reservation Request</button>
-        </form>
-        <div id="financeSuccess" class="success-msg" style="display:none;">
-          Thank you! A reservation specialist will be in touch shortly.
-        </div>
-      </div>
-
     </div>
+
   </section>
 
   <footer class="footer">
@@ -154,8 +99,8 @@
       </div>
       <div class="footer-col">
         <h4>Contact</h4>
-        <p>123 Motor Lane, Springfield, IL 62701</p>
-        <p>&#128222; (217) 555-0192</p>
+        <p>147 Cambridge St, Lowell, MA 01852</p>
+        <p>&#128222; (781) 853-7076</p>
       </div>
     </div>
     <div class="footer-bottom">
@@ -163,6 +108,8 @@
     </div>
   </footer>
 
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
   <script src="js/financing.js"></script>
 </body>
 </html>

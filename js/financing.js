@@ -4,50 +4,32 @@ document.getElementById('navToggle').addEventListener('click', () => {
   document.querySelector('.nav-links').classList.toggle('open');
 });
 
-function fmt(num) {
-  return num.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
-}
-
-function calculate() {
-  const vehiclePrice = parseFloat(document.getElementById('vehiclePrice').value) || 0;
-  const downPayment  = parseFloat(document.getElementById('downPayment').value)  || 0;
-  const tradeIn      = parseFloat(document.getElementById('tradeIn').value)      || 0;
-  const annualRate   = parseFloat(document.getElementById('interestRate').value) || 0;
-  const termMonths   = parseInt(document.getElementById('loanTerm').value)       || 60;
-
-  const loanAmount = Math.max(0, vehiclePrice - downPayment - tradeIn);
-  const monthlyRate = annualRate / 100 / 12;
-
-  let monthly;
-  if (monthlyRate === 0) {
-    monthly = loanAmount / termMonths;
+// Validate end date is after start date
+document.getElementById('fEndDate').addEventListener('change', () => {
+  const start = document.getElementById('fStartDate').value;
+  const end   = document.getElementById('fEndDate').value;
+  if (start && end && end <= start) {
+    document.getElementById('fEndDate').setCustomValidity('End date must be after start date.');
   } else {
-    monthly = loanAmount * (monthlyRate * Math.pow(1 + monthlyRate, termMonths)) /
-              (Math.pow(1 + monthlyRate, termMonths) - 1);
+    document.getElementById('fEndDate').setCustomValidity('');
   }
-
-  const totalPaid    = monthly * termMonths;
-  const totalInterest = totalPaid - loanAmount;
-
-  document.getElementById('resLoan').textContent     = fmt(loanAmount);
-  document.getElementById('resMonthly').textContent  = fmt(monthly) + '/mo';
-  document.getElementById('resInterest').textContent = fmt(Math.max(0, totalInterest));
-  document.getElementById('resTotal').textContent    = fmt(totalPaid + downPayment + tradeIn);
-}
-
-document.getElementById('calcBtn').addEventListener('click', calculate);
-
-// Auto-calculate on input change
-['vehiclePrice','downPayment','tradeIn','interestRate','loanTerm'].forEach(id => {
-  document.getElementById(id).addEventListener('input', calculate);
 });
 
-// Run on load
-calculate();
-
-// Finance application form
 document.getElementById('financeForm').addEventListener('submit', e => {
   e.preventDefault();
+
+  saveInquiry({
+    type:      'reservation',
+    vehicle:   document.getElementById('fVehicle').value.trim() || 'General Reservation',
+    vehicleId: null,
+    name:      `${document.getElementById('fFirstName').value.trim()} ${document.getElementById('fLastName').value.trim()}`,
+    email:     document.getElementById('fEmail').value.trim(),
+    phone:     document.getElementById('fPhone').value.trim(),
+    startDate: document.getElementById('fStartDate').value,
+    endDate:   document.getElementById('fEndDate').value,
+    notes:     document.getElementById('fNotes').value.trim(),
+  });
+
   document.getElementById('financeForm').style.display = 'none';
   document.getElementById('financeSuccess').style.display = 'block';
 });

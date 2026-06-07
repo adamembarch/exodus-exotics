@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;0,6..96,700;1,6..96,400&display=swap');
+
 /* ===== RESET & BASE ===== */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -17,7 +19,7 @@
   --border-light: #dde1e7;
   --shadow:       0 4px 30px rgba(0,0,0,0.6);
   --radius:       10px;
-  --font:         'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font:         'Bodoni XT', 'Bodoni Moda', serif;
   --chrome:       linear-gradient(135deg, #f0f0f0 0%, #a8a8a8 35%, #e0e0e0 55%, #848484 100%);
 }
 

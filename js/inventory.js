@@ -5,13 +5,17 @@ document.getElementById('navToggle').addEventListener('click', () => {
 });
 
 function carCardHTML(car) {
-  const price = car.price.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+  const price   = car.price.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
   const mileage = car.mileage.toLocaleString();
-  const badge = car.badge ? `<span class="car-badge">${car.badge}</span>` : '';
+  const badge   = car.badge ? `<span class="car-badge">${car.badge}</span>` : '';
+  const imgInner = car.image
+    ? `<img src="${car.image}" alt="${car.make} ${car.model}" style="width:100%;height:100%;object-fit:cover;display:block;" />`
+    : (car.emoji || '🚗');
+  const imgStyle = car.image ? 'style="padding:0;font-size:0;"' : '';
   return `
     <div class="car-card" onclick="window.location='car.html?id=${car.id}'">
       <div class="car-img-wrap">
-        <div class="car-img">${car.emoji}</div>
+        <div class="car-img" ${imgStyle}>${imgInner}</div>
         ${badge}
       </div>
       <div class="car-body">
@@ -33,11 +37,10 @@ function carCardHTML(car) {
 }
 
 function renderInventory() {
-  const sort = document.getElementById('sortBy').value;
-  const grid = document.getElementById('inventoryGrid');
-  const count = document.getElementById('resultsCount');
-
-  let results = [...CARS];
+  const sort    = document.getElementById('sortBy').value;
+  const grid    = document.getElementById('inventoryGrid');
+  const count   = document.getElementById('resultsCount');
+  let results   = [...CARS];
 
   switch (sort) {
     case 'price-asc':   results.sort((a,b) => a.price - b.price); break;
@@ -53,5 +56,4 @@ function renderInventory() {
 }
 
 document.getElementById('sortBy').addEventListener('change', renderInventory);
-
 renderInventory();
